@@ -9,7 +9,7 @@ const CATEGORY_DB_NAME = "category_db";
   Future<void> insertCategory(CategoryModal value);
   Future<void> deleteCategory(int id);
   Future<void> updateCategory(int id,value);
-  Future<List<CategoryModal>> getAllCategories();
+  Future<List<CategoryModal>> getAllCategories(CategoryType type);
 }
 
 class CategoryDb implements CategoryDbFunctions {
@@ -21,9 +21,10 @@ class CategoryDb implements CategoryDbFunctions {
     await categoryDb.put(id, value); 
   }
   @override
-  Future<List<CategoryModal>> getAllCategories() async {
+  Future<List<CategoryModal>> getAllCategories(CategoryType type,) async {
     final categoryDb = await Hive.openBox<CategoryModal>(CATEGORY_DB_NAME);
-    return categoryDb.values.toList();
+    final all = categoryDb.values.toList();
+    return all.where((cat)=> cat.type == type && cat.isRemoved == false).toList();
   }
   
   @override
