@@ -8,7 +8,7 @@ class ExpenseCategoryList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final db = CategoryDb();
+    final db = CategoryDb.instance;
     return ValueListenableBuilder(
       valueListenable: db.listenToCategories(),
       builder: (context, Box<CategoryModal> box, _) {

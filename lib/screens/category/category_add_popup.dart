@@ -9,7 +9,7 @@ void showCategoryPopup(context) async {
 
   void insertCategoryToDb(String name, CategoryType type) async {
     final newCategory = CategoryModal(name: name, type: type);
-    await CategoryDb().insertCategory(newCategory);
+    await CategoryDb.instance.insertCategory(newCategory);
     Navigator.pop(context);
   }
 

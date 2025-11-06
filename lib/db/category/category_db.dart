@@ -13,6 +13,11 @@ const CATEGORY_DB_NAME = "category_db";
 }
 
 class CategoryDb implements CategoryDbFunctions {
+  CategoryDb._internal();
+  static CategoryDb instance = CategoryDb._internal();
+  factory CategoryDb() {
+    return instance;
+  }
   @override
   Future<void> insertCategory(CategoryModal value) async{
     final categoryDb = await Hive.openBox<CategoryModal>(CATEGORY_DB_NAME);
