@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:money_management/models/transaction/transaction_modal.dart';
 
@@ -27,9 +28,9 @@ class TransactionDb implements TransactionDbFunctions {
   }
 
   @override
-  Future<List<TransactionModal>> getAllTransactions() {
-    // TODO: implement getAllTransactions
-    throw UnimplementedError();
+  Future<List<TransactionModal>> getAllTransactions()async {
+   final db =  await Hive.openBox<TransactionModal>(TRANSACTION_DB_NAME);
+   return db.values.toList();
   }
 
   @override
@@ -42,5 +43,10 @@ class TransactionDb implements TransactionDbFunctions {
   Future<void> updateTransaction(int id, value) {
     // TODO: implement updateTransaction
     throw UnimplementedError();
+  }
+
+  ValueListenable<Box<TransactionModal>> listenToTransactions() {
+    final transactionDb = Hive.box<TransactionModal>(TRANSACTION_DB_NAME);
+    return transactionDb.listenable();
   }
 }

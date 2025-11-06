@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:money_management/db/category/category_db.dart';
+import 'package:money_management/db/transaction/transaction_db.dart';
 import 'package:money_management/models/category/category_model.dart';
 import 'package:money_management/models/transaction/transaction_modal.dart';
 import 'package:money_management/screens/home/home_screen.dart';
@@ -19,6 +20,7 @@ void main() async {
   }
   // ensure box is open to listen when list
   await Hive.openBox<CategoryModal>(CATEGORY_DB_NAME);
+  await Hive.openBox<TransactionModal>(TRANSACTION_DB_NAME);
   runApp(const MyApp());
 }
 
