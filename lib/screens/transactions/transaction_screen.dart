@@ -13,6 +13,9 @@ class TransactionScreen extends StatelessWidget {
       valueListenable: db.listenToTransactions(),
       builder: (context, Box<TransactionModal> box, _) {
         final transactions = box.values.toList();
+
+        // Sort transactions by date in descending order
+        transactions.sort((a, b) => b.date.compareTo(a.date));
         if (transactions.isEmpty) {
           return const Center(child: Text('No transactions added yet!'));
         }
