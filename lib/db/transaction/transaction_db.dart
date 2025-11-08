@@ -6,8 +6,8 @@ const TRANSACTION_DB_NAME = "transaction_db";
 
 abstract class TransactionDbFunctions {
   Future<void> insertTransaction(TransactionModal obj);
-  Future<void> deleteTransaction(int id);
-  Future<void> updateTransaction(int id, value);
+  Future<void> deleteTransaction(String id);
+  Future<void> updateTransaction(String  id, value);
   Future<List<TransactionModal>> getAllTransactions();
 }
 
@@ -22,9 +22,9 @@ class TransactionDb implements TransactionDbFunctions {
   }
 
   @override
-  Future<void> deleteTransaction(int id) {
-    // TODO: implement deleteTransaction
-    throw UnimplementedError();
+  Future<void> deleteTransaction(String id) async {
+    final db = await Hive.openBox<TransactionModal>(TRANSACTION_DB_NAME);
+    await db.delete(id);
   }
 
   @override
@@ -40,7 +40,7 @@ class TransactionDb implements TransactionDbFunctions {
   }
 
   @override
-  Future<void> updateTransaction(int id, value) {
+  Future<void> updateTransaction(String id, value) {
     // TODO: implement updateTransaction
     throw UnimplementedError();
   }
